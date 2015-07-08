@@ -5,49 +5,77 @@ export interface User {
   password: string
 }
 
-export interface RangeIndex {
-
+export interface Databases {
+  [database:string]:DatabaseSpec
 }
 
-export interface GeospatialIndex {
-
+export interface Servers {
+  [server:string]:ServerSpec
 }
 
-export interface TripleIndex {
-
+export interface Model {
+  databases: Databases
+  servers: Servers
+  contentDatabase?: string
+  modulesDatabase?: string
+  securityDatabase?: string
+  schemaDatabase?: string
+  triggersDatabase?: string
 }
 
 export enum IF_EXISTS {
-  overwrite,
+  recreate,
+  clear,
   ignore,
   fail
 }
 
-export interface DatabaseSpec {
+export interface ForestSpec {
   name: string
   host?: string
-  adminPort?: number
+  database?: string
+}
+
+export interface ServerSpec {
+  name: string
+  contentDatabase?: string
+  modulesDatabase?: string
+  host?: string
+  port?: number
+  group?: string
+}
+
+export interface DatabaseSpec {
+  name: string
   triggersDatabase?: string
   securityDatabase?: string
   schemaDatabase?: string
-  forests?: string[]
-  triggersForests?: string[]
-  securityForests?: string[]
-  schemaForests?: string[]
+  rangeIndices?: RangeIndexSpec[]
+  geoIndices?: GeoIndexSpec[]
+  forests?: ForestSpec[]
+  triples?: boolean
+  defaultRulesets?: string[]
 }
 
-export interface Database {
-  spec: DatabaseSpec
+export interface RangeIndexSpec {
+  database?: string
+  path: string
+  scalarType: string
+  collation?: string
+  invalidValues?: string
+  rangeValuePositions?: boolean
+}
 
-  create(ifExists: IF_EXISTS): Promise<boolean>
+export interface GeoIndexSpec {
+  database?: string
+  path: string
+  coordinateSystem?: string
+  pointFormat?:string
+  invalidValues?: string
+  rangeValuePositions?: boolean
+}
 
-  delete(allRelatedDatabases: boolean): Promise<boolean>
-
-  clear(allRelatedDatabases: boolean): Promise<boolean>
-
-  users(): Promise<User[]>
-
-  addUser(user: User): Promise<boolean>
-
-  removeUser(username: string): Promise<boolean>
+export interface Document<T> {
+  uri:string
+  content:T
 }

@@ -44,35 +44,11 @@ const RUN_SJS_CODE = `
   let $uri := fn:document-uri($alert:doc)
 
  return xdmp:javascript-eval($run-module, ("m", $module, "uri", $uri, "doc", $alert:doc))`
-//  return xdmp:document-insert("blah.xml", <hello>{$uri}</hello>)`
-//  return xdmp:document-insert("blah.xml", <hello><mod>{$module}</mod><uri>$uri</uri><doc>{$alert:doc}</doc></hello>)`
 
 export function installAlert(client: Client, config: AlertConfig) {
   return getModule(client, RUN_SJS_PATH).catch(function() {
     return installModule(client, RUN_SJS_PATH, RUN_SJS_CODE)
   }).then(function() {
-    //     if (config.triggerScope) {
-    //       let states;
-    //       if (config.triggerStates) {
-    //         states = `"${config.triggerStates[0]}"`
-    //         for (let i = 1; i < config.triggerStates.length; i++) {
-    //           states += `, "${config.triggerStates[i]}"`
-    //         }
-    //       } else {
-    //         states = '"create", "modify"'
-    //       }
-    //       let makeTrigger = `
-    // trgr:create-trigger("${config.alertName}", "${config.alertDescription}",
-    //   trgr:trigger-data-event(
-    //       trgr:directory-scope("${config.triggerScope}", "${config.triggerDepth === undefined || config.triggerDepth < 0 ? 'infinity' : config.triggerDepth}"),
-    //       trgr:document-content((${states})),
-    //       trgr:${config.triggerCommit === TRIGGER_COMMIT.POST ? 'post' : 'pre'}-commit()),
-    //   trgr:trigger-module(xdmp:modules-database(), xdmp:modules-root(), "/ext${RUN_SJS_PATH}"),
-    //   fn:true(), xdmp:default-permissions() )
-    // `
-    //     } else {
-
-    //     }
     let makeConfig = `
   xquery version "1.0-ml";
   import module namespace alert = "http://marklogic.com/xdmp/alert" at "/MarkLogic/alert.xqy";
@@ -108,7 +84,6 @@ export function installAlert(client: Client, config: AlertConfig) {
     })
   }).then(function() {
     if (config.triggerScope) {
-      console.log('dfdfd')
       let makeRules = `
 xquery version "1.0-ml";
 import module namespace alert = "http://marklogic.com/xdmp/alert"
@@ -149,7 +124,7 @@ return alert:rule-insert("${config.alertUri}", $rule)`
     trgr:trigger-data-event(
       trgr:directory-scope("${config.triggerScope}", "${config.triggerDepth === undefined || config.triggerDepth < 0 ? 'infinity' : config.triggerDepth}"),
       trgr:document-content((${states})),
-      trgr:${config.triggerCommit === TRIGGER_COMMIT.POST ? 'post' : 'pre'}-commit()
+      trgr:${config.triggerCommit === TRIGGER_COMMIT.PRE ? 'pre' : 'post'}-commit()
     )
   )
   let $config := alert:config-get($uri)
@@ -159,19 +134,5 @@ return alert:rule-insert("${config.alertUri}", $rule)`
       return new Promise(function(resolve, reject) {
         client.xqueryEval(makeTrigger).result(resolve, reject)
       })
-
-
-
-  //   let makeCpf = `
-  // xquery version "1.0-ml";
-  // import module namespace alert = "http://marklogic.com/xdmp/alert" at "/MarkLogic/alert.xqy";
-  // let $uri := "${config.alertUri}"
-  // let $config := alert:config-get($uri)
-  // let $config := alert:config-set-cpf-domain-names($config, (${config.triggerDomain || '"Default Documents"'}))
-  // return alert:config-insert($config)`
-
-  //   return new Promise(function(resolve, reject) {
-  //     client.xqueryEval(makeCpf).result(resolve).catch(reject)
-  //   })
   })
 }

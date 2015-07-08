@@ -13,7 +13,7 @@ export interface RelatedViews {
   // TOOD
 }
 
-export interface AppServerInfo {
+export interface DatabaseInfo {
   id: string
   name: string
   meta: Meta
@@ -21,6 +21,6 @@ export interface AppServerInfo {
   'related-views': RelatedViews
 }
 
-export function getAppServer(client: Client, name: string): Promise<AppServerInfo> {
-  return <Promise<AppServerInfo>> basicRestCall(client, `/manage/v2/servers/${name}?format=json`, `getAppServer/${name}`)
+export function getTask(client: Client, name: string): Promise<DatabaseInfo> {
+  return <Promise<DatabaseInfo>> basicRestCall(client, `/manage/v2/tasks/${name}?format=json`, `getTask/${name}`)
 }

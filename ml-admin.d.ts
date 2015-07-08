@@ -39,6 +39,21 @@ declare module "ml-admin/dist/lib/actions/appservers/getAppServers"{
     export = tmp;
 }
 
+declare module "ml-admin/dist/lib/actions/cpf/createCpfConfig"{
+    import tmp = require('dist/lib/actions/cpf/createCpfConfig');
+    export = tmp;
+}
+
+declare module "ml-admin/dist/lib/actions/cpf/deleteCpfConfig"{
+    import tmp = require('dist/lib/actions/cpf/deleteCpfConfig');
+    export = tmp;
+}
+
+declare module "ml-admin/dist/lib/actions/cpf/getCpfConfig"{
+    import tmp = require('dist/lib/actions/cpf/getCpfConfig');
+    export = tmp;
+}
+
 declare module "ml-admin/dist/lib/actions/databases/clearOrConfigureDatabase"{
     import tmp = require('dist/lib/actions/databases/clearOrConfigureDatabase');
     export = tmp;
@@ -164,8 +179,28 @@ declare module "ml-admin/dist/lib/actions/security/getUsers"{
     export = tmp;
 }
 
+declare module "ml-admin/dist/lib/actions/tasks/createTask"{
+    import tmp = require('dist/lib/actions/tasks/createTask');
+    export = tmp;
+}
+
+declare module "ml-admin/dist/lib/actions/tasks/deleteTask"{
+    import tmp = require('dist/lib/actions/tasks/deleteTask');
+    export = tmp;
+}
+
+declare module "ml-admin/dist/lib/actions/tasks/getTask"{
+    import tmp = require('dist/lib/actions/tasks/getTask');
+    export = tmp;
+}
+
 declare module "ml-admin/dist/lib/adminClient"{
     import tmp = require('dist/lib/adminClient');
+    export = tmp;
+}
+
+declare module "ml-admin/dist/lib/events/decorators"{
+    import tmp = require('dist/lib/events/decorators');
     export = tmp;
 }
 
@@ -174,13 +209,23 @@ declare module "ml-admin/dist/lib/index"{
     export = tmp;
 }
 
-declare module "ml-admin/dist/lib/model/database"{
-    import tmp = require('dist/lib/model/database');
+declare module "ml-admin/dist/lib/model/cpf"{
+    import tmp = require('dist/lib/model/cpf');
     export = tmp;
 }
 
-declare module "ml-admin/dist/lib/model/databaseSpecGenerator"{
-    import tmp = require('dist/lib/model/databaseSpecGenerator');
+declare module "ml-admin/dist/lib/model/decorators"{
+    import tmp = require('dist/lib/model/decorators');
+    export = tmp;
+}
+
+declare module "ml-admin/dist/lib/model/deployer"{
+    import tmp = require('dist/lib/model/deployer');
+    export = tmp;
+}
+
+declare module "ml-admin/dist/lib/model/indexes"{
+    import tmp = require('dist/lib/model/indexes');
     export = tmp;
 }
 
@@ -189,8 +234,48 @@ declare module "ml-admin/dist/lib/model/model"{
     export = tmp;
 }
 
+declare module "ml-admin/dist/lib/model/modelGenerator"{
+    import tmp = require('dist/lib/model/modelGenerator');
+    export = tmp;
+}
+
+declare module "ml-admin/dist/lib/model/modelVisitor"{
+    import tmp = require('dist/lib/model/modelVisitor');
+    export = tmp;
+}
+
+declare module "ml-admin/dist/lib/search/facet"{
+    import tmp = require('dist/lib/search/facet');
+    export = tmp;
+}
+
+declare module "ml-admin/dist/lib/search/search"{
+    import tmp = require('dist/lib/search/search');
+    export = tmp;
+}
+
 declare module "ml-admin/dist/lib/utils/rest"{
     import tmp = require('dist/lib/utils/rest');
+    export = tmp;
+}
+
+declare module "ml-admin/dist/test/actions/admin/getLastRestartTimestampTest"{
+    import tmp = require('dist/test/actions/admin/getLastRestartTimestampTest');
+    export = tmp;
+}
+
+declare module "ml-admin/dist/test/actions/alert/installAndDeleteAlert"{
+    import tmp = require('dist/test/actions/alert/installAndDeleteAlert');
+    export = tmp;
+}
+
+declare module "ml-admin/dist/test/actions/databases/createGetDeleteDatabaseTest"{
+    import tmp = require('dist/test/actions/databases/createGetDeleteDatabaseTest');
+    export = tmp;
+}
+
+declare module "ml-admin/dist/test/actions/restapis/deployAndUndeployRestExtensionTest"{
+    import tmp = require('dist/test/actions/restapis/deployAndUndeployRestExtensionTest');
     export = tmp;
 }
 

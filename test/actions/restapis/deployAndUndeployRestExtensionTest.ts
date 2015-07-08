@@ -18,45 +18,49 @@ function get(context, params) {
 const code: string = String(get)
 
 describe('deploy and undeploy rest extension', function() {
-  it('should create a new rest api, deploy a resource extension, then remove the rest api', function() {
-    let connectionParams: AdminConnectionParams = {
-      password: 'passw0rd'
-    }
-    let client = createAdminClient(connectionParams)
-
-    return getRestApi(client, TEST_REST_API).then(function() {
-      throw 'Test REST API should not exist before calling tests'
-    }).catch(function() {
-      return createRestApi(client, {
-        name: TEST_REST_API,
-        database: TEST_DATABASE,
-        'modules-database': TEST_MODULES,
-        port: 8099
-      })
-    }).then(function() {
-      return getRestApi(client, TEST_REST_API)
-    }).then(function() {
-      return installServiceResourceExtension(client, {
-        name: 'hello',
-        methods: {
-          GET: {
-            msg: "string"
-          }
-        }
-      }, code)
-    }).then(function() {
-      return basicRestCall(client, '/LATEST/resources/hello?msg="world"', 'testRestApi')
-    }).then(function(msg: string) {
-      // TODO: Eek, we need to consider the case where we fail here and thus don't get to delete the rest api
-      msg.should.equal('Hello world')
-
-      return deleteRestApi(client, 'hello', true, true)
-    }).then(function() {
-      return getRestApi(client, TEST_REST_API)
-    }).then(function() {
-      throw 'Test REST API should not exist after the tests'
-    }).catch(function() {
-      return Promise.resolve()
-    }).should.be.fulfilled
+  it('should create a new rest api, deploy a resource extension, then remove the rest api', function(){
+    deployRestExtension().should.be.fulfilled
   })
 })
+
+export function deployRestExtension() {
+  let connectionParams: AdminConnectionParams = {
+    password: 'passw0rd'
+  }
+  let client = createAdminClient(connectionParams)
+
+  return getRestApi(client, TEST_REST_API).then(function() {
+    throw 'Test REST API should not exist before calling tests'
+  }).catch(function() {
+    return createRestApi(client, {
+      name: TEST_REST_API,
+      database: TEST_DATABASE,
+      'modules-database': TEST_MODULES,
+      port: 8099
+    })
+  }).then(function() {
+    return getRestApi(client, TEST_REST_API)
+  }).then(function() {
+    return installServiceResourceExtension(client, {
+      name: 'hello',
+      methods: {
+        GET: {
+          msg: "string"
+        }
+      }
+    }, code)
+  }).then(function() {
+    return basicRestCall(client, '/LATEST/resources/hello?msg="world"', 'testRestApi')
+  }).then(function(msg: string) {
+    // TODO: Eek, we need to consider the case where we fail here and thus don't get to delete the rest api
+    msg.should.equal('Hello world')
+
+    return deleteRestApi(client, 'hello', true, true)
+  }).then(function() {
+    return getRestApi(client, TEST_REST_API)
+  }).then(function() {
+    throw 'Test REST API should not exist after the tests'
+  }).catch(function() {
+    return Promise.resolve()
+  })
+}

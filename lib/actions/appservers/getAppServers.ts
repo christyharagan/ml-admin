@@ -25,5 +25,5 @@ export interface AppServersInfo {
 }
 
 export function getAppServers(client: Client, name: string): Promise<AppServersInfo> {
-  return <Promise<AppServersInfo>> basicRestCall(client, `/manage/v2/appservers?format=json`, `getAppServers`)
+  return <Promise<AppServersInfo>> basicRestCall(client, `/manage/v2/servers?format=json`, `getAppServers`)
 }
