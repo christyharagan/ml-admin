@@ -46,6 +46,8 @@ const RUN_SJS_CODE = `
  return xdmp:javascript-eval($run-module, ("m", $module, "uri", $uri, "doc", $alert:doc))`
 
 export function installAlert(client: Client, config: AlertConfig) {
+  let depth = (config.triggerDepth === undefined || config.triggerDepth < 0) ? 'infinity' : config.triggerDepth
+
   return getModule(client, RUN_SJS_PATH).catch(function() {
     return installModule(client, RUN_SJS_PATH, RUN_SJS_CODE)
   }).then(function() {
@@ -93,7 +95,7 @@ let $rule := alert:make-rule(
     "${config.alertName}",
     "${config.alertDescription}",
     0,
-    cts:directory-query(("${config.triggerScope}"),"1"),
+    cts:directory-query(("${config.triggerScope}"),"${depth}"),
     "${config.actionName}",
     <alert:options/> )
 return alert:rule-insert("${config.alertUri}", $rule)`
@@ -122,7 +124,7 @@ return alert:rule-insert("${config.alertUri}", $rule)`
   let $trigger-ids := alert:create-triggers(
     $uri,
     trgr:trigger-data-event(
-      trgr:directory-scope("${config.triggerScope}", "${config.triggerDepth === undefined || config.triggerDepth < 0 ? 'infinity' : config.triggerDepth}"),
+      trgr:directory-scope("${config.triggerScope}", "${depth}"),
       trgr:document-content((${states})),
       trgr:${config.triggerCommit === TRIGGER_COMMIT.PRE ? 'pre' : 'post'}-commit()
     )

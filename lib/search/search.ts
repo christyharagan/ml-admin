@@ -24,7 +24,7 @@ export interface GeoValue {
 
 export interface SemanticQuery {
   query: semantic.Query
-  ruleSet: string
+  ruleSet?: string
   resultPrefix: string
 }
 
@@ -167,17 +167,48 @@ export function search(client:Client, query: Query, options?: SearchOptions): Pr
         if (query.query || query.facetValues || query.geoValue) {
           doQuery(uris)
         } else {
-          resolve(<SearchResults>{
-            total:uris.length,results:uris.map(function(uri){
-              return<SearchResult<any>> {
-                uri: uri,
-                format:'json'
-              }
+          if (options.content) {
+            if (uris.length > 0) {
+              client.documents.query(qb.where(qb.document(uris))).result(function(results){
+                let searchResults: SearchResult<any>[] = []
+                for (let i = 0; i < results.length; i++) {
+                  let fetchedDocument = <FetchedDocument<any>> results[i]
+                  let result:SearchResult<any>
+                  if (options.highlights) {
+                    result = searchResults[i - 1]
+                  } else {
+                    result = {
+                      uri: fetchedDocument.uri,
+                      format: fetchedDocument.format
+                    }
+                    searchResults.push(result)
+                  }
+                  result.contentLength = fetchedDocument.contentLength
+                  result.content = fetchedDocument.content
+                }
+                resolve({
+                  total: searchResults.length,
+                  results: searchResults
+                })
+              })
+            } else {
+              resolve({
+                total: 0,
+                results:[]
+              })
+            }
+          } else {
+            resolve(<SearchResults>{
+              total:uris.length,results:uris.map(function(uri){
+                return<SearchResult<any>> {
+                  uri: uri,
+                  format:'json'
+                }
+              })
             })
-          })
+          }
         }
       }, function(error) {
-        console.log('sdfdsfdsfds')
         console.log(error)
         reject(error)
         return error

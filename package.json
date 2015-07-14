@@ -1,6 +1,6 @@
 {
   "name": "ml-admin",
-  "version": "0.2.0",
+  "version": "0.2.1",
   "description": "Provides functions for administering Marklogic from node.js",
   "main": "dist/lib/index.js",
   "repository": "christyharagan/ml-admin",

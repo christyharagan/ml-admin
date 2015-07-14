@@ -2,15 +2,14 @@ import {basicRestCall} from '../../utils/rest'
 import {Client} from 'marklogic'
 
 export interface TaskConfiguration {
-  'task-id': string
   'task-enabled'?: boolean
   'task-path': string
   'task-root': string
   'task-type': string
   'task-period': number
   'task-start-date'?: string
-  'task-start-time': string
-  'task-timestamp': string
+  'task-start-time'?: string
+  'task-timestamp'?: string
   'task-database': string
   'task-modules': string
   'task-user': string
