@@ -21,6 +21,12 @@ export interface Model {
   securityDatabase?: string
   schemaDatabase?: string
   triggersDatabase?: string
+  ruleSets?: RuleSet[]
+}
+
+export interface RuleSet {
+  path: string
+  rules: string
 }
 
 export enum IF_EXISTS {

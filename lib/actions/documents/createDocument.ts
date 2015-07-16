@@ -16,5 +16,4 @@ export function createDocument(client: Client, config: DocumentConfiguration, co
   return new Promise(function(resolve, reject) {
     client.eval(`declareUpdate();xdmp.documentInsert('${config.uri}', content);`).result(resolve, reject)
   })
-  //  return basicRestCall(client, createUrl('/v1/documents', config), `createDocument/${config.uri}`, 'PUT', content)
 }

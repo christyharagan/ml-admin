@@ -64,7 +64,8 @@ function toScalarType(rangeOptions:d.RangeIndexedOptions, member:s.ClassMember):
 export function generateModel(schema: s.Schema, definition:Object, defaultHost?: string):m.Model {
   let model:m.Model = {
     databases: {},
-    servers: {}
+    servers: {},
+    ruleSets: []
   }
 
   interface Deployable {
@@ -161,6 +162,15 @@ export function generateModel(schema: s.Schema, definition:Object, defaultHost?:
         case 'modulesDatabase':
           databasesByType.modules = memberSchema.name
           break;
+        case 'ruleSet':
+          let path = (<d.RuleSetOptions>s.expressionToLiteral(decorator.parameters[0])).path
+          let rules = definition[memberSchema.name]()
+
+          model.ruleSets.push({
+            path: (<d.RuleSetOptions>s.expressionToLiteral(decorator.parameters[0])).path,
+            rules: rules
+          })
+          break
       }
     }
   })

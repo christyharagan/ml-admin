@@ -57,6 +57,7 @@
         "./lib/actions/security/deleteUser.ts",
         "./lib/actions/security/getUser.ts",
         "./lib/actions/security/getUsers.ts",
+        "./lib/actions/semantics/createRuleSet.ts",
         "./lib/actions/tasks/createTask.ts",
         "./lib/actions/tasks/deleteTask.ts",
         "./lib/actions/tasks/getTask.ts",

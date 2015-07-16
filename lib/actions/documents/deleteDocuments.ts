@@ -13,5 +13,4 @@ export function deleteDocuments(client: Client, config: DocumentConfiguration): 
   return new Promise(function(resolve, reject) {
     client.eval(`declareUpdate();xdmp.documentDelete('${config.uri}', content);`).result(resolve, reject)
   })
-//  return basicRestCall(client, createUrl('/v1/documents', config), `deleteDocuments/${config.uri}`, 'DELETE')
 }

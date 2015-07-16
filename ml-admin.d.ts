@@ -179,6 +179,11 @@ declare module "ml-admin/dist/lib/actions/security/getUsers"{
     export = tmp;
 }
 
+declare module "ml-admin/dist/lib/actions/semantics/createRuleSet"{
+    import tmp = require('dist/lib/actions/semantics/createRuleSet');
+    export = tmp;
+}
+
 declare module "ml-admin/dist/lib/actions/tasks/createTask"{
     import tmp = require('dist/lib/actions/tasks/createTask');
     export = tmp;

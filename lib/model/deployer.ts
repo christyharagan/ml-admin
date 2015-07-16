@@ -11,6 +11,8 @@ import {deleteForest} from '../actions/forests/deleteForest'
 import {getAppServer} from '../actions/appservers/getAppServer'
 import {createAppServer, AppServerConfiguration} from '../actions/appservers/createAppServer'
 import {deleteAppServer} from '../actions/appservers/deleteAppServer'
+import {createRuleSet} from '../actions/semantics/createRuleSet'
+import {createAdminClient} from '../adminClient'
 
 export interface Deployer {
   deployDatabase(client: Client, ifExists:m.IF_EXISTS, database:m.DatabaseSpec): Promise<boolean>
@@ -86,6 +88,28 @@ export function deployModel(client: Client, deployer:Deployer, ifExists:m.IF_EXI
         }
       }, model)
       return toPromise(promises)
+    } else {
+      return false
+    }
+  }).then(function(result){
+    if (result) {
+      if (model.ruleSets && model.ruleSets.length > 0) {
+        let promises:Promise<boolean>[] = []
+        let server = model.servers[Object.keys(model.servers)[0]]
+        let schemaClient = createAdminClient({
+          host: server.host,
+          port: server.port,
+          user: client.connectionParams.user,
+          password: client.connectionParams.password,
+          database: model.schemaDatabase
+        })
+        model.ruleSets.forEach(function(ruleSet){
+          promises.push(createRuleSet(schemaClient, {path:ruleSet.path}, ruleSet.rules))
+        })
+        return toPromise(promises)
+      } else {
+        return true
+      }
     } else {
       return false
     }

@@ -66,16 +66,6 @@ export interface GeoIndexedOptions {
   class?: typeof GeoIndex
 }
 
-export enum FrequencyType {
-  MINUTES, HOURS, DAYS
-}
-
-export interface TaskOptions {
-  type: FrequencyType,
-  frequency: number,
-  inject: u.Spec|u.Spec[]
-}
-
 export interface RuleSetOptions {
   path: string
 }
@@ -104,12 +94,15 @@ export function rangeIndexed(definition?: RangeIndexedOptions) {
   }
 }
 
-export function task(definition?: TaskOptions) {
-  return function(target: Object, propertyKey:string): void {
+export function ruleSet(definition: RuleSetOptions) {
+  return function(target: Object, propertyKey:string, method:TypedPropertyDescriptor<()=>string>): void {
+    /*return function() {
+      return [definition.path, method()]
+    }*/
   }
 }
 
-export function ruleSet(definition: RuleSetOptions) {
+/*export function ruleSets() {
   return function(target: Object, propertyKey:string): void {
   }
-}
+}*/
