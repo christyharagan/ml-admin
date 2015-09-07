@@ -4,6 +4,7 @@ import {Client} from 'marklogic'
 export interface AppServerConfiguration {
   'server-name': string
   'server-type': string
+  'modules-database': string
   root: string
   'group-name'?: string
   port?: number

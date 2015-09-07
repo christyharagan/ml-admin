@@ -204,58 +204,8 @@ declare module "ml-admin/dist/lib/adminClient"{
     export = tmp;
 }
 
-declare module "ml-admin/dist/lib/events/decorators"{
-    import tmp = require('dist/lib/events/decorators');
-    export = tmp;
-}
-
 declare module "ml-admin/dist/lib/index"{
     import tmp = require('dist/lib/index');
-    export = tmp;
-}
-
-declare module "ml-admin/dist/lib/model/cpf"{
-    import tmp = require('dist/lib/model/cpf');
-    export = tmp;
-}
-
-declare module "ml-admin/dist/lib/model/decorators"{
-    import tmp = require('dist/lib/model/decorators');
-    export = tmp;
-}
-
-declare module "ml-admin/dist/lib/model/deployer"{
-    import tmp = require('dist/lib/model/deployer');
-    export = tmp;
-}
-
-declare module "ml-admin/dist/lib/model/indexes"{
-    import tmp = require('dist/lib/model/indexes');
-    export = tmp;
-}
-
-declare module "ml-admin/dist/lib/model/model"{
-    import tmp = require('dist/lib/model/model');
-    export = tmp;
-}
-
-declare module "ml-admin/dist/lib/model/modelGenerator"{
-    import tmp = require('dist/lib/model/modelGenerator');
-    export = tmp;
-}
-
-declare module "ml-admin/dist/lib/model/modelVisitor"{
-    import tmp = require('dist/lib/model/modelVisitor');
-    export = tmp;
-}
-
-declare module "ml-admin/dist/lib/search/facet"{
-    import tmp = require('dist/lib/search/facet');
-    export = tmp;
-}
-
-declare module "ml-admin/dist/lib/search/search"{
-    import tmp = require('dist/lib/search/search');
     export = tmp;
 }
 

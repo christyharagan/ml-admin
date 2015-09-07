@@ -16,7 +16,7 @@ export interface TaskConfiguration {
   // TODO finish this
 }
 
-export function createTask(client:Client, config:TaskConfiguration, groupId:string):Promise<any> {
+export function createTask(client: Client, config: TaskConfiguration, groupId: string): Promise<any> {
   return basicRestCall(client, `/manage/v2/tasks?group-id=${groupId}`, `createTask/${config['task-path']}`, 'POST', config, {
     'Content-Type': 'application/json'
   })

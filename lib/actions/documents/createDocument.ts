@@ -14,6 +14,12 @@ export interface DocumentConfiguration {
 
 export function createDocument(client: Client, config: DocumentConfiguration, content): Promise<any> {
   return new Promise(function(resolve, reject) {
-    client.eval(`declareUpdate();xdmp.documentInsert('${config.uri}', content);`).result(resolve, reject)
+    content = content.replace(/\\/g, '\\\\').replace(/\t/g, '  ').replace(/\r/g, '\\r').replace(/\n/g, '\\n').replace(/\'/g, '\\\'')
+
+    client.eval(`declareUpdate();
+var textNode = new NodeBuilder();
+textNode.addText('${content}');
+textNode = textNode.toNode();
+xdmp.documentInsert('${config.uri}', textNode);`).result(resolve, reject)
   })
 }

@@ -11,13 +11,16 @@
         "target": "es5",
         "outDir": "./dist"
     },
+    "formatCodeOptions": {
+        "indentSize": 2,
+        "tabSize": 2
+    },
     "filesGlob": [
         "./lib/**/*.ts",
-        "./typings/**/*.d.ts",
         "./test/**/*.ts",
+        "./typings/**/*.d.ts",
         "./node_modules/*/*.d.ts",
-        "./node_modules/typescript/bin/typescript.d.ts",
-        "./ml-admin.d.ts"
+        "./node_modules/typescript/bin/typescript.d.ts"
     ],
     "compileOnSave": true,
     "files": [
@@ -62,34 +65,24 @@
         "./lib/actions/tasks/deleteTask.ts",
         "./lib/actions/tasks/getTask.ts",
         "./lib/adminClient.ts",
-        "./lib/events/decorators.ts",
         "./lib/index.ts",
-        "./lib/model/cpf.ts",
-        "./lib/model/decorators.ts",
-        "./lib/model/deployer.ts",
-        "./lib/model/indexes.ts",
-        "./lib/model/model.ts",
-        "./lib/model/modelGenerator.ts",
-        "./lib/model/modelVisitor.ts",
-        "./lib/search/facet.ts",
-        "./lib/search/search.ts",
         "./lib/utils/rest.ts",
+        "./test/actions/admin/getLastRestartTimestampTest.ts",
+        "./test/actions/alert/installAndDeleteAlert.ts",
+        "./test/actions/databases/createGetDeleteDatabaseTest.ts",
+        "./test/actions/restapis/deployAndUndeployRestExtensionTest.ts",
         "./typings/es6/es6.d.ts",
         "./typings/mocha/mocha.d.ts",
         "./typings/node/node.d.ts",
         "./typings/should-promised/should-promised.d.ts",
         "./typings/should/should.d.ts",
         "./typings/tsd.d.ts",
-        "./test/actions/admin/getLastRestartTimestampTest.ts",
-        "./test/actions/alert/installAndDeleteAlert.ts",
-        "./test/actions/databases/createGetDeleteDatabaseTest.ts",
-        "./test/actions/restapis/deployAndUndeployRestExtensionTest.ts",
         "./node_modules/ml-typescript-definitions/client.d.ts",
         "./node_modules/ml-typescript-definitions/server.d.ts",
         "./node_modules/speckle/speckle.d.ts",
+        "./node_modules/typescript-package/typescript-package.d.ts",
         "./node_modules/typescript-schema/typescript-schema.d.ts",
         "./node_modules/uservices/uservices.d.ts",
-        "./node_modules/typescript/bin/typescript.d.ts",
-        "./ml-admin.d.ts"
+        "./node_modules/typescript/bin/typescript.d.ts"
     ]
 }

@@ -1,7 +1,7 @@
 import {Client} from 'marklogic'
 import {Headers, Options, createOperation, startRequest} from 'marklogic/lib/mlrest'
 
-export function createUrl(path:string, parameters: Object):string {
+export function createUrl(path: string, parameters: Object): string {
   path += '?'
   Object.keys(parameters).forEach(function(name) {
     let value = parameters[name]
@@ -33,7 +33,7 @@ export function basicRestCall(client: Client, endpoint: string, description: str
     operation.requestBody = body
   }
 
-  return <Promise<string>> new Promise(function(resolve, reject) {
+  return <Promise<string>>new Promise(function(resolve, reject) {
     startRequest(operation).result(resolve, reject)
   })
 }

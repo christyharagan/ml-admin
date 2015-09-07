@@ -6,9 +6,13 @@ export interface MethodArgs {
 }
 
 export interface Methods {
+  GET?: MethodArgs
   get?: MethodArgs
+  POST?: MethodArgs
   post?: MethodArgs
+  PUT?: MethodArgs
   put?: MethodArgs
+  DELETE?: MethodArgs
   delete?: MethodArgs
 }
 
@@ -27,6 +31,7 @@ export function installServiceResourceExtension(client: Client, config: Extensio
   if (config.description) {
     parameters += `&description=${config.description}`
   }
+
   // Object.keys(config.methods).forEach(function(method) {
   //   parameters += `&method=${method}`
   //   let args = config.methods[method]
