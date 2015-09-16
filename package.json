@@ -1,6 +1,6 @@
 {
   "name": "ml-admin",
-  "version": "0.4.0",
+  "version": "0.4.1",
   "description": "Provides functions for administering Marklogic from node.js",
   "main": "lib/index.js",
   "typings": "lib/index",
@@ -17,8 +17,7 @@
   "license": "MIT",
   "dependencies": {
     "marklogic": "1.0.2",
-    "ml-typescript-definitions": "^0.3.0",
-    "speckle": "^0.1.3"
+    "ml-typescript-definitions": "^0.3.0"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
