@@ -13,14 +13,17 @@ export interface RelatedViews {
   // TOOD
 }
 
-export interface UserInfo {
-  id: string
-  name: string
+export interface ListItems {
+  // TODO
+}
+
+export interface RolesInfo {
   meta: Meta
   relations: Relations
   'related-views': RelatedViews
+  'list-items': ListItems
 }
 
-export function getUser(client: Client, name: string): Promise<UserInfo> {
-  return <Promise<UserInfo>> basicRestCall(client, `/manage/v2/users/${name}?format=json`, `getUser/${name}`)
+export function getRoles(client: Client, name: string): Promise<RolesInfo> {
+  return <Promise<RolesInfo>>basicRestCall(client, `/manage/v2/roles?format=json`, `getRoles`)
 }

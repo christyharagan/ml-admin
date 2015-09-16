@@ -1,16 +1,14 @@
 {
   "name": "ml-admin",
-  "version": "0.3.0",
+  "version": "0.4.0",
   "description": "Provides functions for administering Marklogic from node.js",
-  "main": "dist/lib/index.js",
+  "main": "lib/index.js",
+  "typings": "lib/index",
   "repository": "christyharagan/ml-admin",
   "author": {
     "name": "Christy Haragan",
     "email": "christy.haragan.github@gmail.com",
     "url": "https://github.com/christyharagan"
-  },
-  "typescript": {
-    "definition": "ml-admin.d.ts"
   },
   "keywords": [
     "marklogic",
@@ -20,9 +18,7 @@
   "dependencies": {
     "marklogic": "1.0.2",
     "ml-typescript-definitions": "^0.3.0",
-    "speckle": "^0.1.3",
-    "typescript-schema": "^0.5.0",
-    "uservices": "^0.4.0"
+    "speckle": "^0.1.3"
   },
   "devDependencies": {
     "gulp": "^3.9.0",
