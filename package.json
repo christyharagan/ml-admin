@@ -1,9 +1,9 @@
 {
   "name": "ml-admin",
-  "version": "0.5.0",
+  "version": "0.5.1",
   "description": "Provides functions for administering Marklogic from node.js",
   "main": "lib/index.js",
-  "typings": "lib/index",
+  "typings": "lib/index.d.ts",
   "repository": "christyharagan/ml-admin",
   "author": {
     "name": "Christy Haragan",
