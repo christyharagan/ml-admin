@@ -1,11 +1,10 @@
 require('should')
 require('should-promised')
 
-import {createAdminClient, AdminConnectionParams} from '../../../lib/adminClient'
+import {createTestClient} from '../../createTestClient'
 import {createRestApi} from '../../../lib/actions/restapis/createRestApi'
 import {getRestApi} from '../../../lib/actions/restapis/getRestApi'
 import {deleteRestApi} from '../../../lib/actions/restapis/deleteRestApi'
-import {installServiceResourceExtension} from '../../../lib/actions/restapis/installServiceResourceExtension'
 import {basicRestCall} from '../../../lib/utils/rest'
 
 const TEST_REST_API = 'testRestApi'
@@ -24,10 +23,7 @@ describe('deploy and undeploy rest extension', function() {
 })
 
 export function deployRestExtension() {
-  let connectionParams: AdminConnectionParams = {
-    password: 'passw0rd'
-  }
-  let client = createAdminClient(connectionParams)
+  let client = createTestClient()
 
   return getRestApi(client, TEST_REST_API).then(function() {
     throw 'Test REST API should not exist before calling tests'
@@ -41,14 +37,9 @@ export function deployRestExtension() {
   }).then(function() {
     return getRestApi(client, TEST_REST_API)
   }).then(function() {
-    return installServiceResourceExtension(client, {
-      name: 'hello',
-      methods: {
-        GET: {
-          msg: "string"
-        }
-      }
-    }, code)
+    return new Promise<void>(function(resolve, reject){
+      client.config.resources.write('hello', 'text', code).result(resolve, reject)
+    })
   }).then(function() {
     return basicRestCall(client, '/LATEST/resources/hello?msg="world"', 'testRestApi')
   }).then(function(msg: string) {

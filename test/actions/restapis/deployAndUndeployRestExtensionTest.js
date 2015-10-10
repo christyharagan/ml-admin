@@ -1,10 +1,9 @@
 require('should');
 require('should-promised');
-var adminClient_1 = require('../../../lib/adminClient');
+var createTestClient_1 = require('../../createTestClient');
 var createRestApi_1 = require('../../../lib/actions/restapis/createRestApi');
 var getRestApi_1 = require('../../../lib/actions/restapis/getRestApi');
 var deleteRestApi_1 = require('../../../lib/actions/restapis/deleteRestApi');
-var installServiceResourceExtension_1 = require('../../../lib/actions/restapis/installServiceResourceExtension');
 var rest_1 = require('../../../lib/utils/rest');
 var TEST_REST_API = 'testRestApi';
 var TEST_DATABASE = 'testContentDatabase';
@@ -19,10 +18,7 @@ describe('deploy and undeploy rest extension', function () {
     });
 });
 function deployRestExtension() {
-    var connectionParams = {
-        password: 'passw0rd'
-    };
-    var client = adminClient_1.createAdminClient(connectionParams);
+    var client = createTestClient_1.createTestClient();
     return getRestApi_1.getRestApi(client, TEST_REST_API).then(function () {
         throw 'Test REST API should not exist before calling tests';
     }).catch(function () {
@@ -35,14 +31,9 @@ function deployRestExtension() {
     }).then(function () {
         return getRestApi_1.getRestApi(client, TEST_REST_API);
     }).then(function () {
-        return installServiceResourceExtension_1.installServiceResourceExtension(client, {
-            name: 'hello',
-            methods: {
-                GET: {
-                    msg: "string"
-                }
-            }
-        }, code);
+        return new Promise(function (resolve, reject) {
+            client.config.resources.write('hello', 'text', code).result(resolve, reject);
+        });
     }).then(function () {
         return rest_1.basicRestCall(client, '/LATEST/resources/hello?msg="world"', 'testRestApi');
     }).then(function (msg) {
