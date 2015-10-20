@@ -20,7 +20,7 @@ describe('deploy and undeploy rest extension', function () {
 function deployRestExtension() {
     var client = createTestClient_1.createTestClient();
     return getRestApi_1.getRestApi(client, TEST_REST_API).then(function () {
-        throw 'Test REST API should not exist before calling tests';
+        throw new Error('Test REST API should not exist before calling tests');
     }).catch(function () {
         return createRestApi_1.createRestApi(client, {
             name: TEST_REST_API,
@@ -32,7 +32,7 @@ function deployRestExtension() {
         return getRestApi_1.getRestApi(client, TEST_REST_API);
     }).then(function () {
         return new Promise(function (resolve, reject) {
-            client.config.resources.write('hello', 'text', code).result(resolve, reject);
+            client.config.resources.write('hello', 'javascript', code).result(resolve, reject);
         });
     }).then(function () {
         return rest_1.basicRestCall(client, '/LATEST/resources/hello?msg="world"', 'testRestApi');
@@ -42,7 +42,7 @@ function deployRestExtension() {
     }).then(function () {
         return getRestApi_1.getRestApi(client, TEST_REST_API);
     }).then(function () {
-        throw 'Test REST API should not exist after the tests';
+        throw new Error('Test REST API should not exist after the tests');
     }).catch(function () {
         return Promise.resolve();
     });

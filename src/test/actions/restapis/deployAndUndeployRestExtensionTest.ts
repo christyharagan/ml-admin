@@ -26,7 +26,7 @@ export function deployRestExtension() {
   let client = createTestClient()
 
   return getRestApi(client, TEST_REST_API).then(function() {
-    throw 'Test REST API should not exist before calling tests'
+    throw new Error('Test REST API should not exist before calling tests')
   }).catch(function() {
     return createRestApi(client, {
       name: TEST_REST_API,
@@ -38,7 +38,7 @@ export function deployRestExtension() {
     return getRestApi(client, TEST_REST_API)
   }).then(function() {
     return new Promise<void>(function(resolve, reject){
-      client.config.resources.write('hello', 'text', code).result(resolve, reject)
+      client.config.resources.write('hello', 'javascript', code).result(resolve, reject)
     })
   }).then(function() {
     return basicRestCall(client, '/LATEST/resources/hello?msg="world"', 'testRestApi')
@@ -50,7 +50,7 @@ export function deployRestExtension() {
   }).then(function() {
     return getRestApi(client, TEST_REST_API)
   }).then(function() {
-    throw 'Test REST API should not exist after the tests'
+    throw new Error('Test REST API should not exist after the tests')
   }).catch(function() {
     return Promise.resolve()
   })

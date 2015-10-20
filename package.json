@@ -1,6 +1,6 @@
 {
   "name": "ml-admin",
-  "version": "0.6.0",
+  "version": "0.6.1",
   "description": "Provides functions for administering Marklogic from node.js",
   "main": "lib/index.js",
   "typings": "lib/index.d.ts",
