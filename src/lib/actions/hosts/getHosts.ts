@@ -45,6 +45,6 @@ export interface HostInfo {
   'list-items': ListItems
 }
 
-export function getHosts(client: DatabaseClient, name: string): Promise<HostsInfo> {
+export function getHosts(client: DatabaseClient): Promise<HostsInfo> {
   return <Promise<HostsInfo>> basicRestCall(client, `/manage/v2/hosts?format=json`, `getHosts`)
 }

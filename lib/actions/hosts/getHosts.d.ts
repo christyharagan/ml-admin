@@ -33,4 +33,4 @@ export interface HostInfo {
     'related-views': RelatedViews;
     'list-items': ListItems;
 }
-export declare function getHosts(client: DatabaseClient, name: string): Promise<HostsInfo>;
+export declare function getHosts(client: DatabaseClient): Promise<HostsInfo>;
